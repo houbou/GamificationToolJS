@@ -171,6 +171,7 @@ function init() {
     "= 500",
     "= 270",
     "+= 2",
+    "= 0",
     "get",
     "return",
   ];
@@ -349,51 +350,60 @@ function keydown(e) {
         if (isItemExec) {
           switch (data) {
             case 0:
-              if (propertyList[focusProperty] == "cat.positionX") {
+              if (propertyHistory[i] == 0) {
                 cat.positionX ++;
               }
-              else if (propertyList[focusProperty] == "cat.positionY") {
+              else if (propertyList[i] == 1) {
                 cat.positionY --;
               }
               break;
   
             case 1:
-              if (propertyList[focusProperty] == "cat.positionX") {
+              if (propertyHistory[i] == 0) {
                 cat.positionX --;
               }
-              else if (propertyList[focusProperty] == "cat.positionY") {
+              else if (propertyHistory[i] == 1) {
                 cat.positionY ++;
               }
               break;
   
             case 2:
-              if (propertyList[focusProperty] == "cat.positionX") {
+              if (propertyHistory[i] == 0) {
                 cat.positionX = 500;
               }
-              else if (propertyList[focusProperty] == "cat.positionY") {
+              else if (propertyHistory[i] == 1) {
                 cat.positionY = 500;
               }
               break;
   
             case 3:
-              if (propertyList[focusProperty] == "cat.positionX") {
+              if (propertyHistory[i] == 0) {
                 cat.positionX = 270;
               }
-              else if (propertyList[focusProperty] == "cat.positionY") {
+              else if (propertyHistory[i] == 1) {
                 cat.positionY = 270;
               }
               break;
   
             case 4:
-              if (propertyList[focusProperty] == "cat.positionX") {
+              if (propertyHistory[i] == 0) {
                 cat.positionX += 2;
               }
-              else if (propertyList[focusProperty] == "cat.positionY") {
+              else if (propertyHistory[i] == 1) {
                 cat.positionY += 2;
               }
               break;
   
             case 5:
+              if (propertyHistory[i] == 0) {
+                cat.positionX = 0;
+              }
+              else if (propertyHistory[i] == 1) {
+                cat.positionY = 0;
+              }
+              break;
+
+            case 6:
               if (gelFlag_1 && gel.isDraw) {
                 gel.isDraw = false;
                 gelCount--;
@@ -419,7 +429,7 @@ function keydown(e) {
               }
               break;
   
-            case 6:
+            case 7:
               if (clearFlag) {
                 isReturned = true;
               }
@@ -543,7 +553,17 @@ function keydown(e) {
   
           itemIndex = 4;
         }
-        else if (focusItem%itemList.length == 5 || focusItem%itemList.length == 5 -itemList.length) { // "get"
+        else if (focusItem%itemList.length == 5 || focusItem%itemList.length == 5 -itemList.length) { // "= 0"
+          if (propertyList[focusProperty] == "cat.positionX") {
+            cat.positionX = 0;
+          }
+          else if (propertyList[focusProperty] == "cat.positionY") {
+            cat.positionY = 0;
+          }
+
+          itemIndex = 5;
+        }
+        else if (focusItem%itemList.length == 6 || focusItem%itemList.length == 6 -itemList.length) { // "get"
           if (gelFlag_1 && gel.isDraw) {
             gel.isDraw = false;
             gelCount--;
@@ -566,14 +586,14 @@ function keydown(e) {
             gelCount = 2;
           }
   
-          itemIndex = 5;
+          itemIndex = 6;
         }
-        else if (focusItem%itemList.length == 6 || focusItem%itemList.length == 6 -itemList.length) { // "return"
+        else if (focusItem%itemList.length == 7 || focusItem%itemList.length == 7 -itemList.length) { // "return"
           if (clearFlag) {
             isReturned = true;
           }
   
-          itemIndex = 6;
+          itemIndex = 7;
         }
   
         if (propertyList[focusProperty] == "cat.positionX"){
@@ -593,8 +613,8 @@ function keydown(e) {
         }
         itemHistory.push(itemIndex);
 
-      }  
-      
+      }
+
       isItemExec = true;
 
     }
@@ -868,10 +888,14 @@ function draw() {
         break;
 
       case 5:
-        item = 'get';
+        item = '= 0';
         break;
 
       case 6:
+        item = 'get';
+        break;
+
+      case 7:
         item = 'return';
         break;
 
@@ -885,6 +909,7 @@ function draw() {
     else if (propertyHistory[i] == 1) {
       myDrawText('Y : '+item, 36, 'right', 'top', -30, 50+i*40, 'bold', 'x12y16pxMaruMonica', "#777", "#EEE", 5, "round");
     }
+
   });
 
 
