@@ -1436,3 +1436,4 @@ function myRGBA (rgb, a) {
 
   return "rgba(" + r + "," + g + "," + b + "," + a.toString(10) + ")";
 }
+
